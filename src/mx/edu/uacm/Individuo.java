@@ -30,7 +30,7 @@ public class Individuo implements Comparator{
 		for(int gen: cromosoma) {
 			cadena=cadena+cromosoma[gen];
 		}
-		return cadena;
+		return cadena+" fitnes: "+fitness;
 	}
 	@Override
 	public int compare(Object o1, Object o2) {
