@@ -33,4 +33,22 @@ public class AlgoritmoGenetico {
 		}
 		return false;
 	}
+	public Individuo seleccionaIndividuo(Poblacion poblacion) {
+		Individuo[] individuos=poblacion.getIndividuos();
+		//Metodo de la ruleta
+		//Ejemplo:
+		// poblacion con fitness = 2 5 6 1
+		//poblacion global=14
+		// 0.5*14 = 7
+		double posicionDeLaRuleta=Math.random()*poblacion.getFitnessPoblacion();
+		
+		double ruedaGiro=0;
+		for(Individuo individuo: individuos) {
+			ruedaGiro+=individuo.getFitness();
+			if(ruedaGiro>=posicionDeLaRuleta) {
+				return individuo;
+			}
+		}
+		return individuos[individuos.length-1];
+	}
 }
