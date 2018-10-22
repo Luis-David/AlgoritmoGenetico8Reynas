@@ -10,9 +10,9 @@ public class Individuo implements Comparator{
 	}
 	public Individuo(int tamCromsoma) {
 		this.cromosoma= new int[tamCromsoma];
-		cromosoma[0]=(int)(Math.random()*8);
+		cromosoma[0]=(int)(Math.random()*tamCromsoma);
 		for (int i = 1; i < cromosoma.length; i++) {
-			cromosoma[i]=(int)(Math.random()*8);
+			cromosoma[i]=(int)(Math.random()*tamCromsoma);
 				for (int j = 0; j < i; j++) {
 					if (cromosoma[i]==cromosoma[j]) {
 						i--;
@@ -37,8 +37,8 @@ public class Individuo implements Comparator{
 	@Override
 	public String toString() {
 		String cadena="";
-		for(int gen: cromosoma) {
-			cadena=cadena+cromosoma[gen];
+		for(int i=0; i<cromosoma.length; i++) {
+			cadena=cadena+cromosoma[i];
 		}
 		return cadena+" fitnes: "+fitness;
 	}

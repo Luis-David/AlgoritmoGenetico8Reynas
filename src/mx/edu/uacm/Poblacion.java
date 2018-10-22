@@ -11,7 +11,7 @@ public class Poblacion {
 	}
 	public Poblacion(int tamPoblacion,int tamCromosoma) {
 		this.poblacion=new Individuo[tamPoblacion];
-		for(int i= 0; i<tamCromosoma; i++) {
+		for(int i= 0; i<tamPoblacion; i++) {
 			poblacion[i]=new Individuo(tamCromosoma);
 		}
 	}
