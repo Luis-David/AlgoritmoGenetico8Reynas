@@ -9,6 +9,16 @@ public class Individuo implements Comparator{
 		this.cromosoma=cromosoma;
 	}
 	public Individuo(int tamCromsoma) {
+		this.cromosoma= new int[tamCromsoma];
+		cromosoma[0]=(int)(Math.random()*8);
+		for (int i = 1; i < cromosoma.length; i++) {
+			cromosoma[i]=(int)(Math.random()*8);
+				for (int j = 0; j < i; j++) {
+					if (cromosoma[i]==cromosoma[j]) {
+						i--;
+					}
+				}
+		}
 		//codigo para crear un nuevo cromosoma
 	}
 	public void setGen(int i,int gen) {
