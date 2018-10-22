@@ -4,12 +4,12 @@ public class AlgoritmoGenetico {
 	private int tamPoblacion;
 	private double tazaMutacion;
 	private double tazaCruce;
-	private int contadorElitismo;
-	public AlgoritmoGenetico(int numPoblacion,double tazaMutacion,double tazaCruce,int contadorElitismo) {
+	private int elitismo;
+	public AlgoritmoGenetico(int numPoblacion,double tazaMutacion,double tazaCruce,int elitismo) {
 		this.tamPoblacion=numPoblacion;
 		this.tazaMutacion=tazaMutacion;
 		this.tazaCruce=tazaCruce;
-		this.contadorElitismo=contadorElitismo;
+		this.elitismo=elitismo;
 	}
 	public Poblacion getNuevaPobacion(int tamCromosoma) {
 		Poblacion poblacion= new Poblacion(this.tamPoblacion,tamCromosoma);
