@@ -33,7 +33,14 @@ public class Individuo implements Comparator{
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
 	}
+	
+	public int getTamanio(){
+		return cromosoma.length; 
+	}
 
+	public int[] getCromosoma() {
+		return this.cromosoma;
+	}
 	@Override
 	public String toString() {
 		String cadena="";
@@ -48,7 +55,10 @@ public class Individuo implements Comparator{
 		Individuo ind2=(Individuo)o2;
 		
 		//que criterio de comparacion se va a poner????????
-		
+		if(ind1.getFitness()<ind2.getFitness())
+			return -1;
+		else if (ind1.getFitness()>ind2.getFitness())
+			return 1;
 		return 0;
 	}
 }
