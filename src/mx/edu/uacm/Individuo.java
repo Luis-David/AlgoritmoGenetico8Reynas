@@ -1,8 +1,6 @@
 package mx.edu.uacm;
 
-import java.util.Comparator;
-
-public class Individuo implements Comparator{
+public class Individuo implements Comparable<Individuo>{
 	private int[] cromosoma;
 	private double fitness=-1;
 	public Individuo(int[] cromosoma) {
@@ -49,15 +47,13 @@ public class Individuo implements Comparator{
 		}
 		return cadena+" fitnes: "+fitness;
 	}
+	
 	@Override
-	public int compare(Object o1, Object o2) {
-		Individuo ind1=(Individuo)o1;
-		Individuo ind2=(Individuo)o2;
-		
+	public int compareTo(Individuo o) {
 		//que criterio de comparacion se va a poner????????
-		if(ind1.getFitness()<ind2.getFitness())
+		if(this.getFitness()<o.getFitness())
 			return -1;
-		else if (ind1.getFitness()>ind2.getFitness())
+		else if (this.getFitness()>o.getFitness())
 			return 1;
 		return 0;
 	}
