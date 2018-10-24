@@ -16,6 +16,7 @@ public class AlgoritmoGenetico {
 		return poblacion;
 	}
 	public double calcularFitness(Individuo individuo) {
+		
 		return 2;
 	}
 	public void evaluarPoblacion(Poblacion p) {
@@ -52,19 +53,19 @@ public class AlgoritmoGenetico {
 		return individuos[individuos.length-1];
 	}
 	//Mutacion de un gen con probabilidad 0.8
-	public void Mutacion(int[] cromosomas) {
+	public void Mutacion(int[] cromosoma) {
 		int aux,posicion,aux2;
-		for (int i = 0; i < cromosomas.length; i++) {
+		for (int i = 0; i < cromosoma.length; i++) {
 			if(0.8>Math.random()) {
-				aux =cromosomas[i];
-				posicion =(int) (Math.random()*7);
-				aux2=cromosomas[posicion];
-				cromosomas[posicion]=aux;
-				cromosomas[i]=aux2;
+				aux =cromosoma[i];
+				posicion =(int) (Math.random()*8);
+				aux2=cromosoma[posicion];
+				cromosoma[posicion]=aux;
+				cromosoma[i]=aux2;
 			}
 		}
-		for (int i = 0; i < cromosomas.length; i++) {
-			System.out.print(cromosomas[i]);
+		for (int i = 0; i < cromosoma.length; i++) {
+			System.out.print(cromosoma[i]);
 		}
 	}
 	//Cruce a un punto
