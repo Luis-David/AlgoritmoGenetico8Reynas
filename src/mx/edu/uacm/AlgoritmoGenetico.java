@@ -16,8 +16,89 @@ public class AlgoritmoGenetico {
 		return poblacion;
 	}
 	public double calcularFitness(Individuo individuo) {
-		
-		return 2;
+		int reyna[]= new int[2];
+		int c=0;
+		int cromosoma[];
+		cromosoma=individuo.getCromosoma();
+		for(int i=0; i<individuo.getTamanio(); i++){
+			reyna[0]=cromosoma[i];//filas
+			reyna[1]=i;//columnas
+			c=c+getNumeroReynaComidasDiagonalDerecha(reyna,cromosoma);
+			c=c+getNumeroReynaComidasDiagonalIzquierda(reyna,cromosoma);
+			c=c+getNumeroReynaComidasHorizantal(reyna,cromosoma);
+
+		}
+		individuo.setFitness(c);
+		return c;
+	}
+	private int getNumeroReynaComidasDiagonalDerecha(int reyna[],int cromosoma[]){
+		int contador=0;
+		int casillaArriba[]=new int[2];
+		int casillaAbajo[]=new int[2];
+		casillaArriba[0]=reyna[0]; casillaArriba[1]=reyna[1];
+		casillaAbajo[0]=reyna[0]; casillaAbajo[1]=reyna[1];
+		for(int i=0; i<cromosoma.length; i++){
+			casillaArriba[0]-=1;
+			casillaArriba[1]+=1;
+			if(casillaArriba[0]>=0 && casillaArriba[1]<cromosoma.length){
+				if(cromosoma[casillaArriba[1]]==casillaArriba[0]){
+					contador++;
+				}
+			}
+			casillaAbajo[0]+=1;
+			casillaAbajo[1]-=1;
+			if(casillaAbajo[1]>=0 && casillaAbajo[0]<cromosoma.length){
+				if(cromosoma[casillaAbajo[1]]==casillaAbajo[0]){
+					contador++;
+				}
+			}
+		}
+		return contador;
+	}
+	private int getNumeroReynaComidasHorizantal(int reyna[],int cromosoma[]){
+		int c1,c2;
+		int numReynasComidas=0;
+		c1=reyna[1];
+		c2=reyna[1];
+		for(int i=0; i<cromosoma.length; i++){
+			c1+=1;
+			if(c1<cromosoma.length){
+				if(cromosoma[c1]==reyna[0]){
+					numReynasComidas++;
+				}
+			}
+			c2-=1;
+			if(c2>=0){
+				if(cromosoma[c2]==reyna[0]){
+					numReynasComidas++;
+				}
+			}
+		}
+		return numReynasComidas;
+	}
+	private int getNumeroReynaComidasDiagonalIzquierda(int reyna[],int cromosoma[]){
+		int contador=0;
+		int casillaArriba[]=new int[2];
+		int casillaAbajo[]=new int[2];
+		casillaArriba[0]=reyna[0]; casillaArriba[1]=reyna[1];
+		casillaAbajo[0]=reyna[0]; casillaAbajo[1]=reyna[1];
+		for(int i=0; i<cromosoma.length; i++){
+			casillaArriba[0]+=1;
+			casillaArriba[1]+=1;
+			if(casillaArriba[0]<cromosoma.length && casillaArriba[1]<cromosoma.length){
+				if(cromosoma[casillaArriba[1]]==casillaArriba[0]){
+					contador++;
+				}
+			}
+			casillaAbajo[0]-=1;
+			casillaAbajo[1]-=1;
+			if(casillaAbajo[1]>=0 && casillaAbajo[0]>=0){
+				if(cromosoma[casillaAbajo[1]]==casillaAbajo[0]){
+					contador++;
+				}
+			}
+		}
+		return contador;
 	}
 	public void evaluarPoblacion(Poblacion p) {
 		double fitnessPoblacion=0;
@@ -25,6 +106,7 @@ public class AlgoritmoGenetico {
 			fitnessPoblacion+=calcularFitness(individuo);
 		}
 		p.setFitnessPoblacion(fitnessPoblacion);
+
 	}
 	public boolean encontreSolucion(Poblacion p) {
 		for(Individuo individuo: p.getIndividuos()) {
