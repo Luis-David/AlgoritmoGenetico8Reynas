@@ -2,7 +2,7 @@ package mx.edu.uacm;
 
 public class Individuo implements Comparable<Individuo>{
 	private int[] cromosoma;
-	private double fitness=-1;
+	private int fitness=-1;
 	public Individuo(int[] cromosoma) {
 		this.cromosoma=cromosoma;
 	}
@@ -25,10 +25,10 @@ public class Individuo implements Comparable<Individuo>{
 	public int getGen(int i) {
 		return cromosoma[i];
 	}
-	public double getFitness() {
+	public int getFitness() {
 		return fitness;
 	}
-	public void setFitness(double fitness) {
+	public void setFitness(int fitness) {
 		this.fitness = fitness;
 	}
 	
