@@ -51,4 +51,35 @@ public class AlgoritmoGenetico {
 		}
 		return individuos[individuos.length-1];
 	}
+	//Mutacion de un gen con probabilidad 0.8
+	public void Mutacion(int[] cromosomas) {
+		int aux,posicion,aux2;
+		for (int i = 0; i < cromosomas.length; i++) {
+			if(0.8>Math.random()) {
+				aux =cromosomas[i];
+				posicion =(int) (Math.random()*7);
+				aux2=cromosomas[posicion];
+				cromosomas[posicion]=aux;
+				cromosomas[i]=aux2;
+			}
+		}
+		for (int i = 0; i < cromosomas.length; i++) {
+			System.out.print(cromosomas[i]);
+		}
+	}
+	//Cruce a un punto
+	public void cruceUnpunto(int[] padre, int[] madre) {
+		int hijo1[] = new int[8];
+		int hijo2[] = new int[8];
+		for (int i = 0; i < padre.length/2; i++) {
+			hijo1[i]=padre[i];
+			hijo2[i]=madre[i];
+		}
+		for (int i = padre.length/2; i < padre.length; i++) {
+			hijo1[i]=madre[i];
+			hijo2[i]=padre[i];
+		}
+		
+	}
+	
 }
