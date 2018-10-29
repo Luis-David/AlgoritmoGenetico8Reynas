@@ -13,11 +13,11 @@ public class Principal {
 			System.out.println("Fitness de la poblacion:"+p.getFitnessPoblacion());
 			System.out.println("Mejor solucion: "+p.obtenerIndividuoMasApto(0));
 			//Aplicar cruce
-			
+			p=ag.cruceUnpunto(p);
 			//Aplicar mutacion
-			
+			ag.mutacion(p);
 			//Evaluacion de la poblacion
-			p= ag.getNuevaPobacion(8);
+			//p= ag.getNuevaPobacion(8);
 			ag.evaluarPoblacion(p);
 			
 			generacion++;
