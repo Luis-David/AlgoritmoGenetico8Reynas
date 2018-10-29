@@ -135,19 +135,21 @@ public class AlgoritmoGenetico {
 		return individuos[individuos.length-1];
 	}
 	//Mutacion de un gen con probabilidad 0.8
-	public void Mutacion(int[] cromosoma) {
-		int aux,posicion,aux2;
-		for (int i = 0; i < cromosoma.length; i++) {
-			if(0.8>Math.random()) {
-				aux =cromosoma[i];
-				posicion =(int) (Math.random()*8);
-				aux2=cromosoma[posicion];
-				cromosoma[posicion]=aux;
-				cromosoma[i]=aux2;
+	public void Mutacion(Poblacion poblacion) {
+		
+		int cromosoma[];
+		int aux,posicion;
+		
+		for(Individuo individuo: poblacion.getIndividuos()) {
+			cromosoma=individuo.getCromosoma();
+			for (int i = 0; i < cromosoma.length; i++) {
+				if(0.8>Math.random()) {
+					aux =cromosoma[i];
+					posicion =(int) (Math.random()*8);
+					cromosoma[i]=cromosoma[posicion];
+					cromosoma[posicion]=aux;
+				}
 			}
-		}
-		for (int i = 0; i < cromosoma.length; i++) {
-			System.out.print(cromosoma[i]);
 		}
 	}
 	//Cruce a un punto
