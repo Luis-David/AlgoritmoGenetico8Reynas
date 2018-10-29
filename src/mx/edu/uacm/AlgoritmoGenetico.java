@@ -164,5 +164,30 @@ public class AlgoritmoGenetico {
 		}
 		
 	}
-	
+	public Poblacion cruzar(Poblacion poblacion) {
+		Poblacion nuevaPoblacion= new Poblacion(this.tamPoblacion);
+		Individuo padre;
+		Individuo padre2;
+		Individuo hijo;
+		for(int i=0; i<poblacion.size(); i++) {
+			padre=poblacion.obtenerIndividuoMasApto(i);
+			if(this.tazaCruce>Math.random() && i>this.elitismo) {
+				hijo=new Individuo(padre.getTamanio());
+				padre2=this.seleccionaIndividuo(poblacion);
+				for(int j=0; i<padre.getTamanio();i++) {
+					if(0.5>Math.random()) {
+						hijo.setGen(j,padre.getGen(j));
+					}
+					else {
+						hijo.setGen(j, padre2.getGen(j));
+					}
+				}
+				nuevaPoblacion.setIndividuo(i, hijo);
+			}
+			else {
+				nuevaPoblacion.setIndividuo(i, padre);
+			}
+		}
+		return nuevaPoblacion;
+	}
 }
