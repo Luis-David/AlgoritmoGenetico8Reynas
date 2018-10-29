@@ -135,7 +135,7 @@ public class AlgoritmoGenetico {
 		return individuos[individuos.length-1];
 	}
 	//Mutacion de un gen con probabilidad 0.8
-	public void Mutacion(Poblacion poblacion) {
+	public void mutacion(Poblacion poblacion) {
 		
 		int cromosoma[];
 		int aux,posicion;
@@ -153,18 +153,31 @@ public class AlgoritmoGenetico {
 		}
 	}
 	//Cruce a un punto
-	public void cruceUnpunto(int[] padre, int[] madre) {
-		int hijo1[] = new int[8];
-		int hijo2[] = new int[8];
-		for (int i = 0; i < padre.length/2; i++) {
-			hijo1[i]=padre[i];
-			hijo2[i]=madre[i];
+	public Poblacion cruceUnpunto(Poblacion poblacion) {
+		Poblacion nuevaPoblacion= new Poblacion(this.tamPoblacion);
+		Individuo padre;
+		Individuo madre;
+		Individuo hijo1=new Individuo(poblacion.getIndividuo(0).getTamanio());
+		Individuo hijo2=new Individuo(poblacion.getIndividuo(0).getTamanio());
+		int puntoCruce;
+		for(int i=0; i<poblacion.size(); i+=2) {
+			padre=poblacion.obtenerIndividuoMasApto(i);
+		    madre=this.seleccionaIndividuo(poblacion);
+			for (int j = 0; j < padre.getTamanio()/2; j++) {
+				hijo1.setGen(j,padre.getGen(j));
+				hijo2.setGen(j,madre.getGen(j));
+			}
+			for (int j = padre.getTamanio()/2; j < padre.getTamanio(); j++) {
+				hijo1.setGen(j,madre.getGen(j));
+				hijo2.setGen(j,padre.getGen(j));
+			}
+			nuevaPoblacion.setIndividuo(i, hijo1);
+			nuevaPoblacion.setIndividuo(i+1, hijo2);
+			System.out.println("padres: "+padre+" madre: "+madre);
+			System.out.println("hijo1 "+hijo1);
+			System.out.println("hijo2 "+hijo2);
 		}
-		for (int i = padre.length/2; i < padre.length; i++) {
-			hijo1[i]=madre[i];
-			hijo2[i]=padre[i];
-		}
-		
+		return nuevaPoblacion;
 	}
 	public Poblacion cruzar(Poblacion poblacion) {
 		Poblacion nuevaPoblacion= new Poblacion(this.tamPoblacion);
