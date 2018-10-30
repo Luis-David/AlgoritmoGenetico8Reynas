@@ -179,11 +179,12 @@ public class AlgoritmoGenetico {
 		}
 		return nuevaPoblacion;
 	}
-	public Poblacion cruzar(Poblacion poblacion) {
-		Poblacion nuevaPoblacion= new Poblacion(this.tamPoblacion);
+	public Poblacion cruceUniforme(Poblacion poblacion) {
+		Poblacion nuevaPoblacion= this.getNuevaPobacion(poblacion.getIndividuo(0).getTamanio());
 		Individuo padre;
 		Individuo padre2;
 		Individuo hijo;
+		System.out.println("Cruce uniforme");
 		for(int i=0; i<poblacion.size(); i++) {
 			padre=poblacion.obtenerIndividuoMasApto(i);
 			if(this.tazaCruce>Math.random() && i>this.elitismo) {
@@ -197,9 +198,11 @@ public class AlgoritmoGenetico {
 						hijo.setGen(j, padre2.getGen(j));
 					}
 				}
+				System.out.println("hijo; "+hijo);
 				nuevaPoblacion.setIndividuo(i, hijo);
 			}
 			else {
+				System.out.println("padre: "+padre);
 				nuevaPoblacion.setIndividuo(i, padre);
 			}
 		}
