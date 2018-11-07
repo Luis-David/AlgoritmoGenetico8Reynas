@@ -1,5 +1,8 @@
 package mx.edu.uacm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AlgoritmoGenetico {
 	private int tamPoblacion;
 	private double tazaMutacion;
@@ -207,5 +210,54 @@ public class AlgoritmoGenetico {
 			}
 		}
 		return nuevaPoblacion;
+	}
+	public Poblacion cruceDeCiclos(Poblacion poblacion) {
+		Poblacion nuevaPoblacion=new Poblacion(poblacion.size(),poblacion.getIndividuo(0).getTamanio());
+		ArrayList<Integer> indices = new ArrayList<Integer>();
+		Individuo padre;
+		Individuo madre;
+		Individuo hijo1;
+		Individuo hijo2;
+		int i=0;
+		int alelo=0;
+		int indice;
+		int c=0;
+		
+		for(int l=0; l<poblacion.size()/2; l+=2) {
+			padre=poblacion.getIndividuo(l);
+			madre=poblacion.getIndividuo(l+1);
+			indices.clear();
+			i=0;
+			c=0;
+			do{
+				indices.add(i);
+				alelo=madre.getGen(i);
+				i=getIndiceAlelo(padre.getCromosoma(), alelo);
+				c++;
+			}while(i >0 && c<padre.getTamanio());
+		
+			hijo1=new Individuo(padre.getCromosoma().length);
+			hijo2=new Individuo(padre.getCromosoma().length);
+			for(int j=0; j<indices.size(); j++) {
+				indice=indices.get(j);
+				hijo1.setGen(indice, padre.getGen(indice));
+				hijo2.setGen(indice, madre.getGen(indice));
+				for(int k=indice+1; (j+1)<indices.size() && k<indices.get(j+1); k++) {
+					hijo1.setGen(k, madre.getGen(k));
+					hijo2.setGen(k, padre.getGen(k));
+				}
+			}
+			nuevaPoblacion.setIndividuo(l, hijo1);
+	
+		}
+		return nuevaPoblacion;
+	}
+	private int getIndiceAlelo(int[] cromosoma, int alelo) {
+		for(int i=0; i<cromosoma.length; i++) {
+			if(cromosoma[i]==alelo) {
+				return i;
+			}
+		}
+		return -1;
 	}
 }

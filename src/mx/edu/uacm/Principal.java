@@ -14,7 +14,8 @@ public class Principal {
 			System.out.println("Mejor solucion: "+p.obtenerIndividuoMasApto(0));
 			//Aplicar cruce
 			//p=ag.cruceUnpunto(p);
-			p=ag.cruceUniforme(p);
+			p=ag.cruceDeCiclos(p);
+			//p=ag.cruceUniforme(p);
 			//Aplicar mutacion
 			ag.mutacion(p);
 			//Evaluacion de la poblacion
