@@ -2,7 +2,10 @@ package mx.edu.uacm;
 
 public class Principal {
 	public static void main(String[] args) {
-		AlgoritmoGenetico ag= new AlgoritmoGenetico(50, 0.01,0.95,0);
+		Long inicio=System.currentTimeMillis();
+		Long fin;
+		Long t;
+		AlgoritmoGenetico ag= new AlgoritmoGenetico(50, 0.8,0.95,0);
 		Poblacion p= ag.getNuevaPobacion(8);
 		ag.evaluarPoblacion(p);
 		int generacion=1;
@@ -26,7 +29,10 @@ public class Principal {
 			System.out.println("generacion: "+generacion);
 
 		}
+		fin=System.currentTimeMillis();
+		t=fin-inicio;
 		System.out.println("Fitness de la poblacion:"+p.getFitnessPoblacion());
 		System.out.println("Mejor solucion: "+p.obtenerIndividuoMasApto(0));
+		System.out.println("Tiempo demorado para encontrar la solucion: "+t+" ms");
 	}
 }
