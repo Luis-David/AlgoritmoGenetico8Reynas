@@ -119,8 +119,19 @@ public class AlgoritmoGenetico {
 		}
 		return false;
 	}
+	public Poblacion obtenerMediaMejorPoblacion(Poblacion p) {
+		Poblacion mp= new Poblacion();
+		Individuo individuo;
+		int tamanioPoblacion=p.size()/2;
+		while(tamanioPoblacion != p.size()) {
+			individuo=seleccionaIndividuo(p);
+			mp.setIndividuo(individuo);
+			p.getIndividuos().remove(individuo);
+		}
+		return mp;
+	}
 	public Individuo seleccionaIndividuo(Poblacion poblacion) {
-		Individuo[] individuos=poblacion.getIndividuos();
+		ArrayList<Individuo> individuos=poblacion.getIndividuos();
 		//Metodo de la ruleta
 		//Ejemplo:
 		// poblacion con fitness = 2 5 6 1
@@ -135,9 +146,9 @@ public class AlgoritmoGenetico {
 				return individuo;
 			}
 		}
-		return individuos[individuos.length-1];
+		return individuos.get(individuos.size()-1);
 	}
-	//Mutacion de un gen con probabilidad 0.8
+	
 	public void mutacion(Poblacion poblacion) {
 		
 		int cromosoma[];
@@ -146,9 +157,9 @@ public class AlgoritmoGenetico {
 		for(Individuo individuo: poblacion.getIndividuos()) {
 			cromosoma=individuo.getCromosoma();
 			for (int i = 0; i < cromosoma.length; i++) {
-				if(0.8>Math.random()) {
+				if(tazaMutacion>Math.random()) {
 					aux =cromosoma[i];
-					posicion =(int) (Math.random()*8);
+					posicion =(int) (Math.random()*8);//columna
 					cromosoma[i]=cromosoma[posicion];
 					cromosoma[posicion]=aux;
 				}
@@ -157,7 +168,7 @@ public class AlgoritmoGenetico {
 	}
 	//Cruce a un punto
 	public Poblacion cruceUnpunto(Poblacion poblacion) {
-		Poblacion nuevaPoblacion= new Poblacion(this.tamPoblacion);
+		Poblacion nuevaPoblacion= new Poblacion();
 		Individuo padre;
 		Individuo madre;
 		Individuo hijo1=new Individuo(poblacion.getIndividuo(0).getTamanio());
@@ -174,8 +185,8 @@ public class AlgoritmoGenetico {
 				hijo1.setGen(j,madre.getGen(j));
 				hijo2.setGen(j,padre.getGen(j));
 			}
-			nuevaPoblacion.setIndividuo(i, hijo1);
-			nuevaPoblacion.setIndividuo(i+1, hijo2);
+			nuevaPoblacion.setIndividuo(hijo1);
+			nuevaPoblacion.setIndividuo(hijo2);
 			System.out.println("padres: "+padre+" madre: "+madre);
 			System.out.println("hijo1 "+hijo1);
 			System.out.println("hijo2 "+hijo2);
@@ -202,17 +213,20 @@ public class AlgoritmoGenetico {
 					}
 				}
 				System.out.println("hijo; "+hijo);
-				nuevaPoblacion.setIndividuo(i, hijo);
+				nuevaPoblacion.setIndividuo(hijo);
 			}
 			else {
 				System.out.println("padre: "+padre);
-				nuevaPoblacion.setIndividuo(i, padre);
+				nuevaPoblacion.setIndividuo(padre);
 			}
 		}
 		return nuevaPoblacion;
 	}
 	public Poblacion cruceDeCiclos(Poblacion poblacion) {
 		Poblacion nuevaPoblacion=new Poblacion(poblacion.size(),poblacion.getIndividuo(0).getTamanio());
+		Poblacion nuevaGeneracion= new Poblacion();
+		this.evaluarPoblacion(nuevaPoblacion);
+		Poblacion poblacionP,poblacionM;
 		ArrayList<Integer> indices = new ArrayList<Integer>();
 		Individuo padre;
 		Individuo madre;
@@ -223,9 +237,11 @@ public class AlgoritmoGenetico {
 		int indice;
 		int c=0;
 		
-		for(int l=0; l<poblacion.size()/2; l+=2) {
-			padre=poblacion.getIndividuo(l);
-			madre=poblacion.getIndividuo(l+1);
+		poblacionM=obtenerMediaMejorPoblacion(poblacion);
+		poblacionP=obtenerMediaMejorPoblacion(nuevaPoblacion);
+		for(int l=0; l<poblacionM.size(); l++) {
+			padre=poblacionP.getIndividuo(l);
+			madre=poblacionM.getIndividuo(l);
 			indices.clear();
 			i=0;
 			c=0;
@@ -247,10 +263,10 @@ public class AlgoritmoGenetico {
 					hijo2.setGen(k, padre.getGen(k));
 				}
 			}
-			nuevaPoblacion.setIndividuo(l, hijo1);
-	
+			nuevaGeneracion.setIndividuo(hijo1);
+			nuevaGeneracion.setIndividuo(hijo2);
 		}
-		return nuevaPoblacion;
+		return nuevaGeneracion;
 	}
 	private int getIndiceAlelo(int[] cromosoma, int alelo) {
 		for(int i=0; i<cromosoma.length; i++) {
