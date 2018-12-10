@@ -6,7 +6,7 @@ public class Principal {
 		Long fin;
 		Long t;
 		AlgoritmoGenetico ag= new AlgoritmoGenetico(50, 0.8,0.95,0);
-		Poblacion p= ag.getNuevaPobacion(8);
+		Poblacion p= ag.getNuevaPoblacion(12);
 		ag.evaluarPoblacion(p);
 		int generacion=1;
 		for(Individuo i: p.getIndividuos()) {

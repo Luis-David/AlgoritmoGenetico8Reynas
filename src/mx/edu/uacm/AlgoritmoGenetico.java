@@ -14,7 +14,7 @@ public class AlgoritmoGenetico {
 		this.tazaCruce=tazaCruce;
 		this.elitismo=elitismo;
 	}
-	public Poblacion getNuevaPobacion(int tamCromosoma) {
+	public Poblacion getNuevaPoblacion(int tamCromosoma) {
 		Poblacion poblacion= new Poblacion(this.tamPoblacion,tamCromosoma);
 		return poblacion;
 	}
@@ -194,7 +194,7 @@ public class AlgoritmoGenetico {
 		return nuevaPoblacion;
 	}
 	public Poblacion cruceUniforme(Poblacion poblacion) {
-		Poblacion nuevaPoblacion= this.getNuevaPobacion(poblacion.getIndividuo(0).getTamanio());
+		Poblacion nuevaPoblacion= this.getNuevaPoblacion(poblacion.getIndividuo(0).getTamanio());
 		Individuo padre;
 		Individuo padre2;
 		Individuo hijo;
@@ -223,7 +223,7 @@ public class AlgoritmoGenetico {
 		return nuevaPoblacion;
 	}
 	public Poblacion cruceDeCiclos(Poblacion poblacion) {
-		Poblacion nuevaPoblacion=new Poblacion(poblacion.size(),poblacion.getIndividuo(0).getTamanio());
+		Poblacion nuevaPoblacion=this.getNuevaPoblacion(poblacion.getIndividuo(0).getTamanio());
 		Poblacion nuevaGeneracion= new Poblacion();
 		this.evaluarPoblacion(nuevaPoblacion);
 		Poblacion poblacionP,poblacionM;
